@@ -3,10 +3,18 @@ plugins {
 	id 'org.springframework.boot' version '3.2.5'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'com.adarshr.test-logger' version '4.0.0'
+	id "org.sonarqube" version "7.3.0.8198"
 }
 
 group = 'com.openclassroom.devops.orion'
 version = '0.0.1-SNAPSHOT'
+
+sonar {
+  properties {
+    property "sonar.projectKey", "MllHlg_Projet7"
+    property "sonar.organization", "mllhlg"
+  }
+}
 
 java {
 	sourceCompatibility = '17'

@@ -1,0 +1,83 @@
+name: Projet 7 pipeline
+on: [push, pull_request]
+
+env:
+  FRONT_DIR: "front/"
+  BACK_DIR: "back/"
+  OWNER_LC: ""
+  BRANCH: ""
+
+jobs:
+  test_front:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "front/package-lock.json"
+
+      - name: Setup Angular
+        run: npm ci
+        working-directory: front/
+
+      - name: Lancement des tests du front
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+        working-directory: front/
+
+      - name: Rapport de tests
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rapports-de-tests-front
+          path: "**/test-results/*.xml"
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
+        with:
+          projectBaseDir: front/
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  test_back:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+      
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Lancement des tests du back
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          chmod +x gradlew
+          ./gradlew build sonar --info
+        working-directory: back/
+
+      - name: Rapport de tests
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rapports-de-tests-back
+          path: "**/test-results/*.xml"
