@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: 
+      context: .
+      target: back
+    image: orion-microcrm-back:latest
+    container_name: back
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: 
+      context: .
+      target: front
+    image: orion-microcrm-front:latest
+    container_name: front
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always    
+    depends_on:
+      - backend
