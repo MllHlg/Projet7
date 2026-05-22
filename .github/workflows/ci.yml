@@ -42,6 +42,9 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
         with:
           projectBaseDir: front/
+          args: >
+            -Dsonar.projectKey=MllHlg_Projet7
+            -Dsonar.organization=mllhlg
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
