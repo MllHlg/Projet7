@@ -25,10 +25,10 @@ EXPOSE 443
 
 FROM eclipse-temurin:21-jre-alpine as back
 
-COPY --from=back-build /src/build/libs/microcrm-0.0.1-SNAPSHOT.jar /app/back/microcrm-0.0.1-SNAPSHOT.jar
+COPY --from=back-build /src/build/libs/*.jar /app/back/microcrm.jar
 
 WORKDIR /app
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "/app/back/microcrm-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/back/microcrm.jar"]
