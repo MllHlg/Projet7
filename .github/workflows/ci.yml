@@ -28,15 +28,16 @@ jobs:
         working-directory: front/
 
       - name: Lancement des tests du front
-        run: npm run test -- --watch=false --browsers=ChromeHeadless
-        working-directory: front/
+        run: |
+          chmod +x run-tests.sh
+          ./run-tests.sh front
 
       - name: Rapport de tests
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: rapports-de-tests-front
-          path: "**/test-results/*.xml"
+          path: "test-results/*.xml"
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
@@ -74,13 +75,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          chmod +x gradlew
-          ./gradlew build sonar --info
-        working-directory: back/
+          chmod +x run-tests.sh
+          ./run-tests.sh back
+          cd back && ./gradlew build sonar --info
 
       - name: Rapport de tests
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: rapports-de-tests-back
-          path: "**/test-results/*.xml"
+          path: "test-results/*.xml"
