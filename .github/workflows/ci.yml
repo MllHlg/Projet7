@@ -44,7 +44,7 @@ jobs:
         with:
           projectBaseDir: front/
           args: >
-            -Dsonar.projectKey=MllHlg_Projet7
+            -Dsonar.projectKey=MllHlg_Projet7_front
             -Dsonar.organization=mllhlg
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -11,7 +11,7 @@ version = '0.0.1-SNAPSHOT'
 
 sonar {
   properties {
-    property "sonar.projectKey", "MllHlg_Projet7"
+    property "sonar.projectKey", "MllHlg_Projet7_back"
     property "sonar.organization", "mllhlg"
   }
 }
