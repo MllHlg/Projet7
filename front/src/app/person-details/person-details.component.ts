@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Person, PersonService } from '../person.service';
 import { Organization, OrganizationService } from '../organization.service';
+import { LogService } from '../log.service';
 
 @Component({
   selector: 'app-person-details',
@@ -29,7 +30,7 @@ export class PersonDetailsComponent implements OnInit {
   selectedOrganization: Organization | null = null;
   isNew: boolean = false;
 
-  constructor(private route: ActivatedRoute, private personService: PersonService, private organizationService: OrganizationService, private router: Router) {
+  constructor(private route: ActivatedRoute, private personService: PersonService, private organizationService: OrganizationService, private router: Router, private logService: LogService) {
     this.organizationService.fetchAll().then(orgs => this.organizations = orgs)
   }
 
@@ -49,6 +50,7 @@ export class PersonDetailsComponent implements OnInit {
   }
 
   savePerson() {
+    this.logService.sendLogToBackend('INFO', `L'utilisateur tente d'enregistrer la personne : ${this.person.firstName} ${this.person.lastName}`);
     this.personService.save({
       ...this.person
     }).then(p => {
@@ -56,11 +58,14 @@ export class PersonDetailsComponent implements OnInit {
       if (this.isNew) {
         this.router.navigate(["persons", p.id])
       }
+    }).catch(error => {
+      this.logService.sendLogToBackend('ERROR', `Échec de sauvegarde pour la personne : ${this.person.email}`);
     })
   }
 
   deletePerson() {
     if (this.person.id === undefined) return
+    this.logService.sendLogToBackend('WARN', `Suppression demandée pour la personne ID : ${this.person.id}`);
     this.personService.deleteById(this.person.id).then(() => {
       this.router.navigate([""])
     })
