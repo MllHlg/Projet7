@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Person, PersonService } from '../person.service';
 import { Organization, OrganizationService } from '../organization.service';
+import { LogService } from '../log.service';
 
 @Component({
   selector: 'app-organization-details',
@@ -23,7 +24,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   isNew: boolean = false;
 
-  constructor(private route: ActivatedRoute, private personService: PersonService, private organizationService: OrganizationService, private router: Router) {
+  constructor(private route: ActivatedRoute, private personService: PersonService, private organizationService: OrganizationService, private router: Router, private logService: LogService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +44,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   saveOrg() {
+    this.logService.sendLogToBackend('INFO', `L'utilisateur a cliqué sur Save pour l'organisation : ${this.org.name}`);
     this.organizationService.save({
       ...this.org
     }).then(o => {
@@ -50,11 +52,14 @@ export class OrganizationDetailsComponent implements OnInit {
       if (this.isNew) {
         this.router.navigate(["organizations", o.id])
       }
+    }).catch(error => {
+      this.logService.sendLogToBackend('ERROR', `Échec de la sauvegarde de l'organisation ${this.org.name}`);
     })
   }
 
   deleteOrg() {
     if (this.org.id === undefined) return
+    this.logService.sendLogToBackend('WARN', `L'utilisateur a cliqué sur Delete pour l'organisation ID : ${this.org.id}`);
     this.organizationService.deleteById(this.org.id).then(() => {
       this.router.navigate([""])
     })
