@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/MllHlg/Projet7/compare/v1.0.0...v1.1.0) (2026-05-28)
+
+
+### Bug Fixes
+
+* mise en place du monorepo dans SonarQube ([3147c52](https://github.com/MllHlg/Projet7/commit/3147c52c8b7de0cc45b3b52cfbfe9b6420a65bbb))
+* oubli d'un fichier pour le commit de la mise en place de ELK ([59c9759](https://github.com/MllHlg/Projet7/commit/59c97592b9c0f26f5d553a2317badcd0635499f6))
+
+
+### Features
+
+* Mise en place de ELK avec des logs d'exemple ([47352dd](https://github.com/MllHlg/Projet7/commit/47352dddb94cbf16fec9db74b691fd7a0398e798))
+
 # 1.0.0 (2026-05-22)
 
 
