@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/MllHlg/Projet7/compare/v1.1.0...v1.1.1) (2026-06-02)
+
+
+### Bug Fixes
+
+* Mise a jour du README pour Docker et le CI/CD ([f127fb8](https://github.com/MllHlg/Projet7/commit/f127fb870cb718cf4bc0395fda5aecd85f8025d8))
+
 # [1.1.0](https://github.com/MllHlg/Projet7/compare/v1.0.0...v1.1.0) (2026-05-28)
 
 
