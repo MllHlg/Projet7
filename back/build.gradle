@@ -20,6 +20,16 @@ test {
     finalizedBy jacocoTestReport
 }
 
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
 sonar {
   properties {
     property "sonar.projectKey", "MllHlg_Projet7_back"
