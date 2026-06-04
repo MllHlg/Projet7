@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/MllHlg/Projet7/compare/v1.1.1...v1.1.2) (2026-06-04)
+
+
+### Bug Fixes
+
+* génération des rapports de tests et envoi à SonarQube ([dbbdd28](https://github.com/MllHlg/Projet7/commit/dbbdd28dd128d03a0d77d5c0f51d86242fc0fa13))
+
 ## [1.1.1](https://github.com/MllHlg/Projet7/compare/v1.1.0...v1.1.1) (2026-06-02)
 
 
