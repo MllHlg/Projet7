@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/MllHlg/Projet7/compare/v1.1.2...v1.1.3) (2026-06-04)
+
+
+### Bug Fixes
+
+* génération des rapports de tests du front-end ([06ddd25](https://github.com/MllHlg/Projet7/commit/06ddd25c6400e8e87a47697ee1b1e34f501cfb60))
+
 ## [1.1.2](https://github.com/MllHlg/Projet7/compare/v1.1.1...v1.1.2) (2026-06-04)
 
 
