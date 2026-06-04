@@ -46,6 +46,7 @@ jobs:
           args: >
             -Dsonar.projectKey=MllHlg_Projet7_front
             -Dsonar.organization=mllhlg
+            -Dsonar.javascript.lcov.reportPaths=coverage/microcrm/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -77,7 +78,7 @@ jobs:
         run: |
           chmod +x run-tests.sh
           ./run-tests.sh back
-          cd back && ./gradlew sonar --info
+          cd back && ./gradlew sonar --info -Dsonar.projectKey=MllHlg_Projet7_back -Dsonar.organization=mllhlg
 
       - name: Rapport de tests
         uses: actions/upload-artifact@v4

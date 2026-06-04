@@ -10,7 +10,7 @@ if [ "$TARGET" == "back" ]; then
 
     cd back
     chmod +x gradlew
-    ./gradlew test
+    ./gradlew test jacocoTestReport
     EXIT_CODE=$?
     
     find build/test-results/test -name "*.xml" -exec cp {} ../$REPORT_DIR/back-test-results.xml \;
@@ -20,7 +20,7 @@ elif [ "$TARGET" == "front" ]; then
     rm -f $REPORT_DIR/front-test-results.xml
 
     cd front
-    npm run test -- --watch=false --browsers=ChromeHeadless
+    npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
     EXIT_CODE=$?
     
     cp front-test-results.xml ../$REPORT_DIR/ 2>/dev/null
