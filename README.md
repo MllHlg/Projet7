@@ -140,16 +140,34 @@ docker run -it --rm -p 8080:8080 orion-microcrm-back:latest
 
 L'API sera disponible sur http://localhost:8080.
 
-#### Tout en un
+#### Lancer l'application
+
+Un fichier `docker-compose.yml` est disponible pour lancer simultanément le client et le serveur.
+
+##### Démarrer les conteneurs
 
 ```shell
-docker build --target standalone -t orion-microcrm-standalone:latest .
-```
-
-##### Exécuter l'image
-
-```shell
-docker run -it --rm -p 8080:8080 -p 80:80 -p 443:443 orion-microcrm-standalone:latest
+docker-compose up --build -d
 ```
 
 L'application sera disponible sur https://localhost et l'API sur http://localhost:8080.
+
+### Intégration et déploiement continue (CI/CD)
+
+Ce projet utilise GitHub Actions pour automatiser les tests, l'analyse de code, la création d'images Docker et la gestion des versions. Le pipeline se déclenche à chaque `push` ou `pull_request`.
+
+Le workflow est divisé en plusieurs jobs :
+
+1. **Tests :** 
+   - Automatisation de l'exécution des tests du front et du back grâce au script `run-test.sh`
+   - Analyse de la qualité du code front et back avec **SonarQube**.
+   - Sauvegarde des rapports de tests sous forme d'artefacts GitHub.
+
+2. **Build :**
+   - Déclenché lors d'une mise à jour sur la branche `main`.
+   - Construction des images Docker.
+   - Stockage des images sur le GitHub Container Registry avec le tag lié au commit et le tag `latest`.
+
+3. **Release :**
+   - Déclenchée sur la branche `main` si les étapes de build réussissent.
+   - Utilisation de l'outil `semantic-release` pour gérer le versioning du projet basé sur l'historique des commits.
