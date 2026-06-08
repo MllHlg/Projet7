@@ -4,9 +4,9 @@
 
 # MicroCRM (P7 - Développeur Full-Stack - Java et Angular - Mettez en œuvre l'intégration et le déploiement continu d'une application Full-Stack)
 
-MicroCRM est une application de démonstration basique ayant pour être objectif de servir de socle pour le module "P7 - Développeur Full-Stack".
+MicroCRM est une application de démonstration basique ayant pour objectif de servir de socle pour le module "P7 - Développeur Full-Stack".
 
-L'application MicroCRM est une implémentation simplifiée d'un ["CRM" (Customer Relationship Management)](https://fr.wikipedia.org/wiki/Gestion_de_la_relation_client). Les fonctionnalités sont limitées à la création, édition et la visualisations des individus liés à des organisations.
+L'application MicroCRM est une implémentation simplifiée d'un ["CRM" (Customer Relationship Management)](https://fr.wikipedia.org/wiki/Gestion_de_la_relation_client). Les fonctionnalités sont limitées à la création, édition et la visualisation des individus liés à des organisations.
 
 ![Page d'accueil](./misc/screenshots/screenshot_1.png)
 ![Édition de la fiche d'un individu](./misc/screenshots/screenshot_2.png)
@@ -119,7 +119,7 @@ cd back
 ./gradlew test
 ```
 
-### Intégration et déploiement continue (CI/CD)
+### Intégration et déploiement continu (CI/CD)
 
 Ce projet utilise GitHub Actions pour automatiser les tests, l'analyse de code, la création d'images Docker et la gestion des versions. Le pipeline (fichier .github/workflows/ci.yml) se déclenche à chaque `push` ou `pull_request`.
 
