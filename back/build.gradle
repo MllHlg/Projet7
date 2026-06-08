@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.openclassroom.devops.orion'
-version = '1.1.3'
+version = '1.1.4'
 
 jacocoTestReport {
     reports {
