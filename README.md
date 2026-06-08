@@ -15,10 +15,23 @@ L'application MicroCRM est une implémentation simplifiée d'un ["CRM" (Customer
 
 ### Organisation
 
-Ce [monorepo](https://en.wikipedia.org/wiki/Monorepo) contient les 2 composantes du projet "MicroCRM":
+* **Architecture séparée :** Un front-end Angular 17 et une API REST en Java Spring Boot 3.
+* **Conteneurisation :** Utilisation de *multi-stage builds* Docker pour optimiser le poids des images, gérées via Docker Compose.
+* **CI/CD :** Pipeline automatisé via GitHub Actions assurant les tests, l'analyse qualité et le déploiement sur le GitHub Container Registry.
+* **Qualité & Sécurité :** Analyse intégrée au pipeline via SonarQube Cloud.
+* **Monitoring :** Centralisation des logs via la stack ELK (Elasticsearch, Logstash, Kibana).
 
-- La partie serveur (ou "backend"), en Java SpringBoot 3;
-- La partie cliente (ou "frontend"), en Angular 17.
+### Démarrer via Docker (recommandé)
+
+Un fichier `docker-compose.yml` est disponible pour lancer simultanément le client et le serveur.
+
+Exécutez la commande suivante à la racine du projet :
+
+```shell
+docker-compose up -d
+```
+
+Le côté client de l'application sera disponible sur https://localhost et l'API sera disponible sur http://localhost:8080.
 
 ### Démarrer avec les sources
 
@@ -106,60 +119,14 @@ cd back
 ./gradlew test
 ```
 
-### Images Docker
-
-#### Client
-
-##### Construire l'image
-
-```shell
-docker build --target front -t orion-microcrm-front:latest .
-```
-
-##### Exécuter l'image
-
-```shell
-docker run -it --rm -p 80:80 -p 443:443 orion-microcrm-front:latest
-```
-
-L'application sera disponible sur https://localhost.
-
-#### Serveur
-
-##### Construire l'image
-
-```shell
-docker build --target back -t orion-microcrm-back:latest .
-```
-
-##### Exécuter l'image
-
-```shell
-docker run -it --rm -p 8080:8080 orion-microcrm-back:latest
-```
-
-L'API sera disponible sur http://localhost:8080.
-
-#### Lancer l'application
-
-Un fichier `docker-compose.yml` est disponible pour lancer simultanément le client et le serveur.
-
-##### Démarrer les conteneurs
-
-```shell
-docker-compose up --build -d
-```
-
-L'application sera disponible sur https://localhost et l'API sur http://localhost:8080.
-
 ### Intégration et déploiement continue (CI/CD)
 
-Ce projet utilise GitHub Actions pour automatiser les tests, l'analyse de code, la création d'images Docker et la gestion des versions. Le pipeline se déclenche à chaque `push` ou `pull_request`.
+Ce projet utilise GitHub Actions pour automatiser les tests, l'analyse de code, la création d'images Docker et la gestion des versions. Le pipeline (fichier .github/workflows/ci.yml) se déclenche à chaque `push` ou `pull_request`.
 
 Le workflow est divisé en plusieurs jobs :
 
 1. **Tests :** 
-   - Automatisation de l'exécution des tests du front et du back grâce au script `run-test.sh`
+   - Automatisation de l'exécution des tests du front et du back grâce au script `run-tests.sh`
    - Analyse de la qualité du code front et back avec **SonarQube**.
    - Sauvegarde des rapports de tests sous forme d'artefacts GitHub.
 
@@ -171,3 +138,14 @@ Le workflow est divisé en plusieurs jobs :
 3. **Release :**
    - Déclenchée sur la branche `main` si les étapes de build réussissent.
    - Utilisation de l'outil `semantic-release` pour gérer le versioning du projet basé sur l'historique des commits.
+  
+### Centralisation des logs (Stack ELK)
+
+Le projet intègre la stack ELK (Elasticsearch, Logstash, Kibana) pour l'analyse des logs en temps réel.
+
+Pour démarrer l'environnement ELK de manière isolée :
+```shell
+docker-compose -f docker-compose-elk.yml up -d
+```
+
+L'interface de visualisation est accessible sur http://localhost:5601.
