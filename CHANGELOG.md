@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/MllHlg/Projet7/compare/v1.1.4...v1.1.5) (2026-06-08)
+
+
+### Bug Fixes
+
+* correction du README ([5485f7f](https://github.com/MllHlg/Projet7/commit/5485f7f7d5c7078a3e2afccae53ef45df4a0eca4))
+
 ## [1.1.4](https://github.com/MllHlg/Projet7/compare/v1.1.3...v1.1.4) (2026-06-08)
 
 
